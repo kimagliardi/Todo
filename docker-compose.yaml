@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: your_database
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      DATABASE_URL: jdbc:postgresql://postgres/your_database
+#      DATABASE_USER: postgres
+#      DATABASE_PASSWORD: postgres
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - postgres
+volumes:
+  postgres_data:
