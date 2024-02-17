@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    ksp("io.micronaut.data:micronaut-data-processor")
     ksp("io.micronaut:micronaut-http-validation")
     ksp("io.micronaut.serde:micronaut-serde-processor")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
@@ -23,11 +24,18 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("io.micronaut.validation:micronaut-validation")
+
     annotationProcessor("io.micronaut.validation:micronaut-validation-processor")
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("io.micronaut:micronaut-http-client")
+
+    //JPA
+    implementation("io.micronaut.sql:micronaut-jdbc")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    runtimeOnly("org.postgresql:postgresql:42.7.1")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
 }
 
 

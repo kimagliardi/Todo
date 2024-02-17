@@ -1,18 +1,18 @@
 package com.example
 
-import io.micronaut.core.annotation.Introspected
-import io.micronaut.serde.annotation.Serdeable
-import io.micronaut.serde.annotation.Serdeable.Deserializable
-import jakarta.validation.constraints.NotBlank
-import java.util.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import java.time.LocalDateTime
 
-@Introspected
-@Serdeable.Serializable
-@Deserializable
-data class Todo (
-        @field:NotBlank val id: String? = UUID.randomUUID().toString(),
-        @field:NotBlank val name: String,
-        var description: String,
-        var tasks: MutableList<Task>
+@Entity
+class Todo (
+    var name: String,
+    var description: String
+){
+    @Id
+    @GeneratedValue
+    var id: Long? = null
 
-)
+    val createdAt: LocalDateTime = LocalDateTime.now()
+}
