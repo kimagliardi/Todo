@@ -5,7 +5,10 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.3.2"
     id("io.micronaut.aot") version "4.3.2"
+    kotlin("plugin.noarg") version "1.9.22"
+
 }
+
 
 version = "0.1"
 group = "com.example"
@@ -29,15 +32,29 @@ dependencies {
     compileOnly("io.micronaut:micronaut-http-client")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    runtimeOnly("org.yaml:snakeyaml")
     testImplementation("io.micronaut:micronaut-http-client")
 
     //JPA
-    implementation("io.micronaut.sql:micronaut-jdbc")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     runtimeOnly("org.postgresql:postgresql:42.7.1")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
+
+
+    // Micronaut BOM for version management
+
+    // Micronaut Runtime
+    implementation("io.micronaut:micronaut-runtime")
+
+    // Micronaut HTTP Server
+    implementation("io.micronaut:micronaut-http-server-netty")
 }
 
+noArg{
+    annotation("jakarta.persistence.Entity")
+    invokeInitializers = true
+}
 
 application {
     mainClass.set("com.example.ApplicationKt")

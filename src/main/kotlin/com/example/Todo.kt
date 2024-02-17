@@ -1,18 +1,23 @@
 package com.example
 
+import io.micronaut.serde.annotation.Serdeable
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import java.time.LocalDateTime
+
+
+
 
 @Entity
-class Todo (
-    var name: String,
-    var description: String
-){
+@Serdeable
+@Serdeable.Serializable
+data class Todo(
     @Id
-    @GeneratedValue
-    var id: Long? = null
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long? = null,
+    var name: String,
+    var description: String? = null
+)
 
-    val createdAt: LocalDateTime = LocalDateTime.now()
-}
+

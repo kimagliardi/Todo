@@ -1,0 +1,14 @@
+#Fri Feb 16 20:34:03 UTC 2024
+micronaut.application.name=todo
+
+# Datasource configuration
+datasources.default.url=jdbc:postgresql://localhost:5432/cdc
+datasources.default.driverClassName=org.postgresql.Driver
+datasources.default.username=postgres
+datasources.default.password=postgres
+datasources.default.dialect=POSTGRES
+
+# JPA configuration
+jpa.default.entity-scan.packages=com.example
+jpa.default.properties.hibernate.bytecode.provider=none
+jpa.default.properties.hibernate.hbm2ddl.auto=update

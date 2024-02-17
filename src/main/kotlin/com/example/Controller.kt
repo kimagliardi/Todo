@@ -1,41 +1,35 @@
 package com.example
 
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
-import io.micronaut.validation.Validated
-import jakarta.validation.Valid
+import io.micronaut.http.HttpResponse
+import io.micronaut.http.annotation.*
 
-@Validated
 @Controller("/todos")
+class TodoController(private val todoService: TodoService) {
 
-class Controller(val todoRepository: TodoRepository) {
-    val todos = mutableMapOf<String?, TodoRequest>()
+    @Get("/")
+    fun listTodos(): List<Todo> = todoService.listTodos()
 
-    @Post
-    fun createNewTodo(@Body @Valid request: TodoRequest): TodoRequest {
-        val todo = request.newTodo()
-
-        todoRepository.save(todo)
-        return request
+    @Post("/")
+    fun createTodo(@Body todo: Todo): HttpResponse<Todo> {
+        return HttpResponse.created(todoService.createTodo(todo))
     }
 
-    @Get
-    fun getTodo(): Collection<TodoRequest> {
-        return todos.values
+    @Get("/{id}")
+    fun findTodoById(@PathVariable id: Long): HttpResponse<Todo> {
+        val todo = todoService.findTodoById(id) ?: return HttpResponse.notFound()
+        return HttpResponse.ok(todo)
     }
 
-/*
-@Get("/{id}")
-fun getTodoById(id: String): TodoRequest? {
-    return todos[id]
-}
+    @Put("/{id}")
+    fun updateTodo(@PathVariable id: Long, @Body updatedTodo: Todo): HttpResponse<Todo> {
+        println("todo id {id}")
+        val todo = todoService.updateTodo(id, updatedTodo) ?: return HttpResponse.notFound()
+        return HttpResponse.ok(todo)
+    }
 
-@Put("/{id}")
-fun updateTodo(@Body @Valid request: TodoRequest): TodoRequest?{
-    todos[request.id] = request
-    return todos[request.id]
-}
-*/
+    @Delete("/{id}")
+    fun deleteTodo(@PathVariable id: Long): HttpResponse<Unit> {
+        todoService.deleteTodo(id)
+        return HttpResponse.noContent()
+    }
 }
