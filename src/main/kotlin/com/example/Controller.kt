@@ -1,19 +1,18 @@
 package com.example
 
-import io.micronaut.http.annotation.Body
+import io.micronaut.http.annotation.*
 import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Delete
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
-import io.micronaut.http.annotation.Put
-import java.util.UUID
+import io.micronaut.validation.Validated
+import jakarta.validation.Valid
 
+@Validated
 @Controller("/todos")
+
 class Controller {
     val todos = mutableMapOf<String?, Todo>()
 
     @Post
-    fun createNewTodo(@Body request: Todo): Todo {
+    fun createNewTodo(@Body @Valid request: Todo): Todo {
         todos[request.id] = request
         return request
     }
@@ -28,7 +27,7 @@ class Controller {
     }
 
     @Put("/{id}")
-    fun updateTodo(@Body request: Todo): Todo?{
+    fun updateTodo(@Body @Valid request: Todo): Todo?{
         todos[request.id] = request
         return todos[request.id]
     }
