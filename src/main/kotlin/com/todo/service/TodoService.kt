@@ -1,5 +1,7 @@
-package com.todo
+package com.todo.service
 
+import com.todo.domain.Todo
+import com.todo.repository.TodoRepository
 import jakarta.inject.Singleton
 import jakarta.transaction.Transactional
 

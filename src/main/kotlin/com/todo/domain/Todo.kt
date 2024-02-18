@@ -1,4 +1,4 @@
-package com.todo
+package com.todo.domain
 
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.persistence.*

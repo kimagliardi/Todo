@@ -12,7 +12,7 @@ datasources:
 jpa:
   default:
     entity-scan:
-      packages: 'com.todo'
+      packages: 'com.todo.domain'
     properties:
       hibernate:
         hbm2ddl:

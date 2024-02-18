@@ -1,5 +1,6 @@
-package com.todo
+package com.todo.repository
 
+import com.todo.domain.Todo
 import io.micronaut.data.annotation.Repository
 import io.micronaut.data.jpa.repository.JpaRepository
 

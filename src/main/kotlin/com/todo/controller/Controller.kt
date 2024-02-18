@@ -1,5 +1,7 @@
-package com.todo
+package com.todo.controller
 
+import com.todo.domain.Todo
+import com.todo.service.TodoService
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.*
 import io.micronaut.validation.Validated
