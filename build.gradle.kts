@@ -42,13 +42,19 @@ dependencies {
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
 
 
-    // Micronaut BOM for version management
+    // OpenAPI
+    annotationProcessor("io.micronaut.openapi:micronaut-openapi")
+    implementation("io.swagger.core.v3:swagger-annotations")
 
     // Micronaut Runtime
     implementation("io.micronaut:micronaut-runtime")
 
     // Micronaut HTTP Server
     implementation("io.micronaut:micronaut-http-server-netty")
+
+    // Logging
+    implementation("org.slf4j:slf4j-api:2.0.12")
+
 }
 
 noArg{

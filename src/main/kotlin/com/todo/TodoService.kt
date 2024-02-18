@@ -1,4 +1,4 @@
-package com.example
+package com.todo
 
 import jakarta.inject.Singleton
 import jakarta.transaction.Transactional
