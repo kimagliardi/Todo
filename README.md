@@ -1,28 +1,28 @@
-## Micronaut 4.3.2 Documentation
+## High-Level Components
 
-- [User Guide](https://docs.micronaut.io/4.3.2/guide/index.html)
-- [API Reference](https://docs.micronaut.io/4.3.2/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/4.3.2/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+- **API Layer**: Handles HTTP requests and responses. It will define endpoints for CRUD operations on Todos.
+- **Service Layer**: Contains business logic. It orchestrates the operations between the API layer and the Data Access layer.
+- **Data Access Layer (DAL)**: Responsible for data persistence. It interacts with a database or an in-memory data structure to store and retrieve Todos.
+- **Model**: Defines the data structure of a Todo and its Subtasks.
 
-- [Micronaut Gradle Plugin documentation](https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/)
-- [GraalVM Gradle Plugin documentation](https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html)
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
-## Feature ksp documentation
+## Model
 
-- [Micronaut Kotlin Symbol Processing (KSP) documentation](https://docs.micronaut.io/latest/guide/#kotlin)
+### Todo
 
-- [https://kotlinlang.org/docs/ksp-overview.html](https://kotlinlang.org/docs/ksp-overview.html)
+- `id`: Unique identifier (mandatory)
+- `name`: Name of the todo (mandatory)
+- `description`: Description of the todo (optional)
+- `tasks`: List of Subtasks (optional)
 
+### Subtask
 
-## Feature serialization-jackson documentation
+- `name`: Name of the subtask (mandatory)
+- `description`: Description of the subtask (optional)
 
-- [Micronaut Serialization Jackson Core documentation](https://micronaut-projects.github.io/micronaut-serialization/latest/guide/)
+## API Endpoints and Operations
 
-
-## Feature micronaut-aot documentation
-
-- [Micronaut AOT documentation](https://micronaut-projects.github.io/micronaut-aot/latest/guide/)
-
-
+- `GET /todos`: Fetch all Todos.
+- `POST /todos`: Create a new Todo.
+- `GET /todos/{id}`: Fetch a single Todo by ID.
+- `PUT /todos/{id}`: Update an existing Todo by ID.
+- `DELETE /todos/{id}`: Delete a Todo by ID.

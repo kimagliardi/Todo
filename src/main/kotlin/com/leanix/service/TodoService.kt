@@ -22,13 +22,14 @@ open class TodoService(private val todoRepository: TodoRepository) {
         val todo = findTodoById(id) ?: return null
         todo.name = updatedTodo.name
         todo.description = updatedTodo.description
-
+        todo.replaceTasks(updatedTodo.tasks)
 
         return todoRepository.update(todo)
     }
 
     @Transactional
     open fun deleteTodo(id: UUID) {
+
         todoRepository.deleteById(id)
     }
 }

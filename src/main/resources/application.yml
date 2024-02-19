@@ -3,7 +3,7 @@ micronaut:
     name: leanix
 datasources:
   default:
-    url: jdbc:postgresql://localhost:5432/cdc
+    url: jdbc:postgresql://localhost:5432/leanix
     driverClassName: org.postgresql.Driver
     username: postgres
     password: postgres
@@ -19,14 +19,4 @@ jpa:
           auto: update
         show_sql: true
         format_sql: true
-
-
-test-resources:
-  containers:
-    postgres:
-      accept-license: true
-
-
-
-
 
