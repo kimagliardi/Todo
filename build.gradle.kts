@@ -56,13 +56,6 @@ dependencies {
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.12")
 
-
-    // Test Containers
-    testImplementation("org.testcontainers:testcontainers:1.19.5")
-    testImplementation("org.testcontainers:postgresql:1.19.5")
-    testImplementation("org.testcontainers:junit-jupiter:1.19.5")
-
-
 }
 
 noArg{
