@@ -4,6 +4,7 @@ import com.leanix.model.Todo
 import com.leanix.service.TodoService
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.*
+import io.micronaut.serde.ObjectMapper
 import io.micronaut.validation.Validated
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
@@ -36,10 +37,13 @@ class TodoController(private val todoService: TodoService) {
 
     @Transactional
     @Get("/{id}")
-    fun findTodoById(@PathVariable id: UUID): HttpResponse<Todo> {
-        val todo = todoService.findTodoById(id) ?: return HttpResponse.notFound()
-        return HttpResponse.ok(todo)
+    fun findTodoById(@PathVariable id: UUID,): HttpResponse<String> {
+        val todo = todoService.findTodoById(id)
+        var objectMapper = ObjectMapper.getDefault()
+        println(objectMapper.writeValueAsString(todo))
+        return HttpResponse.ok(objectMapper.writeValueAsString(todo))
     }
+
 
     @Put("/{id}")
     fun updateTodo(@PathVariable id: UUID, @Body updatedTodo: Todo): HttpResponse<Todo> {
