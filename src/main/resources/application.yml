@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: todo
+    name: leanix
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/cdc
@@ -12,7 +12,7 @@ datasources:
 jpa:
   default:
     entity-scan:
-      packages: 'com.todo.domain'
+      packages: 'com.leanix.model'
     properties:
       hibernate:
         hbm2ddl:

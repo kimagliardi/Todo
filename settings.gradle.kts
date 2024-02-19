@@ -1,4 +1,4 @@
 
 
-rootProject.name="todo"
+rootProject.name="leanix"
 
