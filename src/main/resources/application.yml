@@ -21,7 +21,10 @@ jpa:
         format_sql: true
 
 
-
+test-resources:
+  containers:
+    postgres:
+      accept-license: true
 
 
 

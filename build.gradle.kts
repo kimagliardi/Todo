@@ -5,6 +5,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.3.2"
     id("io.micronaut.aot") version "4.3.2"
+    id ("io.micronaut.test-resources") version "4.3.2"
     kotlin("plugin.noarg") version "1.9.22"
 
 }
