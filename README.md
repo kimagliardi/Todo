@@ -1,5 +1,5 @@
 
-https://github.com//Todo/actions/workflows/main.yml/badge.svg?event=push
+![Build workflow](https://github.com//Todo/actions/workflows/main.yml/badge.svg?event=push)
 
 ## High-Level Components
 
