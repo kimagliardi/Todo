@@ -1,6 +1,5 @@
 
-
-https://github.com/kimagliardi/Todo/actions/workflows/main.yml/badge.svg
+https://github.com//Todo/actions/workflows/main.yml/badge.svg?event=push
 
 ## High-Level Components
 
