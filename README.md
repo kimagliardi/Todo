@@ -1,4 +1,8 @@
-[![codecov](https://codecov.io/gh/kim.agliardi/Todo/branch/main/graph/badge.svg?token=<TOKEN>)](https://codecov.io/gh/kim.agliardi/Todo>)![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kim.agliardi/Todo/Build)## High-Level Components
+
+
+https://github.com/kimagliardi/Todo/actions/workflows/main.yml/badge.svg
+
+## High-Level Components
 
 - **API Layer**: Handles HTTP requests and responses. It will define endpoints for CRUD operations on Todos.
 - **Service Layer**: Contains business logic. It orchestrates the operations between the API layer and the Data Access layer.
