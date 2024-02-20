@@ -1,5 +1,9 @@
 
 [![Build](https://github.com/kimagliardi/Todo/actions/workflows/main.yml/badge.svg)](https://github.com/kimagliardi/Todo/actions/workflows/main.yml)
+![Coverage](.github/badges/jacoco.svg)
+
+
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/kimagliardi/Todo/actions/workflows/main.yml)
 
 ## High-Level Components
 
