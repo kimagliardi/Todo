@@ -1,5 +1,5 @@
 
-![Build workflow](https://github.com//Todo/actions/workflows/main.yml/badge.svg)
+[![Build](https://github.com/kimagliardi/Todo/actions/workflows/main.yml/badge.svg)](https://github.com/kimagliardi/Todo/actions/workflows/main.yml)
 
 ## High-Level Components
 
