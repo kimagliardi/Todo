@@ -1,6 +1,4 @@
-micronaut:
-
-  datasources:
+datasources:
     default:
       url: jdbc:postgresql://localhost:5432/dev
       driverClassName: org.postgresql.Driver
