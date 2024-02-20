@@ -3,7 +3,7 @@ micronaut:
     name: leanix
 datasources:
   default:
-    url: jdbc:postgresql://localhost:5432/leanix
+    url: jdbc:postgresql://localhost:5432/dev
     driverClassName: org.postgresql.Driver
     username: postgres
     password: postgres

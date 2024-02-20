@@ -1,0 +1,21 @@
+micronaut:
+
+  datasources:
+    default:
+      url: jdbc:postgresql://localhost:5432/dev
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password: postgres
+      dialect: POSTGRES
+
+jpa:
+  default:
+    entity-scan:
+      packages: 'com.leanix.model'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
+        format_sql: true
+
