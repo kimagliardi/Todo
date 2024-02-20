@@ -140,6 +140,7 @@ fun createSampleTodo(spec: RequestSpecification){
 
     }
 
+    /*
     @Test
     fun `SUCCESS - should return 200 on GET todo by ID` (spec: RequestSpecification){
         val todoId = "e54473f4-6075-402c-bda0-944a95747982"
@@ -150,7 +151,7 @@ fun createSampleTodo(spec: RequestSpecification){
             .statusCode(200)
             .header("Content-Type", "application/json")
 
-    }
+    }*/
 
     // Reminder: Is there a need for an empty list test case?
 

@@ -1,3 +1,6 @@
+[![Build](https://github.com/kimagliardi/Todo/actions/workflows/main.yml/badge.svg)](https://github.com/kimagliardi/Todo/actions/workflows/main.yml)
+
+
 ## High-Level Components
 
 - **API Layer**: Handles HTTP requests and responses. It will define endpoints for CRUD operations on Todos.
