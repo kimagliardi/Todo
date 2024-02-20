@@ -44,4 +44,5 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-
+    - name: jacoco-badge-generator
+      uses: cicirello/jacoco-badge-generator@v2.11.0
