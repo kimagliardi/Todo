@@ -17,7 +17,7 @@ class TodoController(private val todoService: TodoService) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Get("/")
-    fun listTodos(): List<Todo> = todoService.listTodos()
+    fun listTodos(): List<Todo> = todoService.listAll()
 
     @Post("/")
     fun createTodo(@Valid @Body todo: Todo): HttpResponse<Todo> {

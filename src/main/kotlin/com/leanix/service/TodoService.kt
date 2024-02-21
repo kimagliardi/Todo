@@ -10,7 +10,7 @@ import java.util.*
 @Singleton
 open class TodoService(private val todoRepository: TodoRepository) {
 
-    open fun listTodos(): List<Todo> = todoRepository.findAll()
+    open fun listAll(): List<Todo> = todoRepository.findAll()
 
     @Transactional
     open fun createTodo(todo: Todo): Todo = todoRepository.save(todo)

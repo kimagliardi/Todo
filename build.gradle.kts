@@ -58,6 +58,8 @@ dependencies {
 
     // Testing
     testImplementation("io.micronaut.test:micronaut-test-rest-assured")
+    testImplementation("io.mockk:mockk:1.13.9")
+
 
 }
 
