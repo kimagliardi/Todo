@@ -17,7 +17,7 @@ class TodoController(private val todoService: TodoService) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @Get("/")
-    fun listTodos(): List<Todo> = todoService.listTodos()
+    fun listTodos(): List<Todo> = todoService.listAll()
 
     @Post("/")
     fun createTodo(@Valid @Body todo: Todo): HttpResponse<Todo> {
@@ -37,11 +37,12 @@ class TodoController(private val todoService: TodoService) {
 
     @Transactional
     @Get("/{id}")
-    fun findTodoById(@PathVariable id: UUID,): HttpResponse<String> {
-        val todo = todoService.findTodoById(id)
+    fun findTodoById(@PathVariable id: UUID,): HttpResponse<Todo> {
+        val todo = todoService.findTodoById(id) ?: return HttpResponse.notFound()
+
         var objectMapper = ObjectMapper.getDefault()
         println(objectMapper.writeValueAsString(todo))
-        return HttpResponse.ok(objectMapper.writeValueAsString(todo))
+        return HttpResponse.ok(todo)
     }
 
 

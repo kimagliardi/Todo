@@ -12,7 +12,7 @@ plugins {
 
 
 version = "0.1"
-group = "com.example"
+group = "com.leanix"
 
 val kotlinVersion=project.properties.get("kotlinVersion")
 repositories {
@@ -56,6 +56,11 @@ dependencies {
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.12")
 
+    // Testing
+    testImplementation("io.micronaut.test:micronaut-test-rest-assured")
+    testImplementation("io.mockk:mockk:1.13.9")
+
+
 }
 
 noArg{
@@ -64,7 +69,7 @@ noArg{
 }
 
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("com.leanix.ApplicationKt")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
@@ -77,7 +82,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("com.example.*")
+        annotations("com.leanix.*")
     }
     aot {
     // Please review carefully the optimizations enabled below
