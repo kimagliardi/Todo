@@ -29,7 +29,6 @@ open class TodoService(private val todoRepository: TodoRepository) {
 
     @Transactional
     open fun deleteTodo(id: UUID) {
-
-        todoRepository.deleteById(id)
+        return todoRepository.deleteById(id)
     }
 }
