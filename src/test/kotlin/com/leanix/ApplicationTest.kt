@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 @MicronautTest(environments = ["test"])
 
-class TodoRequestTest {
+class ApplicationTest {
 
     @Inject
     lateinit var application: EmbeddedApplication<*>
