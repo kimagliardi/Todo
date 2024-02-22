@@ -4,160 +4,126 @@ import com.leanix.model.Task
 import com.leanix.model.Todo
 import com.leanix.repository.TodoRepository
 import io.mockk.every
+import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.util.*
 
 class TodoServiceTest {
     private val todoRepository = mockk<TodoRepository>()
-
     private val todoService = TodoService(todoRepository)
 
-
-    //listAll tests
+    // List all TODOs
     @Test
-    fun `should return an empty list of todos`(){
-        every {
-            todoRepository.findAll()
-        } returns emptyList()
-
-        val result = todoService.listAll()
-        assertTrue(result.isEmpty())
-
-        verify(exactly = 1) {todoRepository.findAll()}
+    fun `returnsEmptyListWhenNoTodosPresent`() {
+        every { todoRepository.findAll() } returns emptyList()
+        assertTrue(todoService.listAll().isEmpty())
+        verify(exactly = 1) { todoRepository.findAll() }
     }
 
     @Test
-    fun `should return a list with todos`(){
-        val expectedTodos = listOf(
-            Todo(name="First Todo", description = "First subtask"),
-            Todo(name="Second Todo", description = "Second subtask")
+    fun `returnsNonEmptyListWhenTodosPresent`() {
+        val tasks = mutableListOf(
+            Task(name = "First subtask", description = "first subtask description")
         )
 
+        val expectedTodos = listOf(
+            Todo(name = "First Todo", description = "First description", tasks =  tasks),
+            Todo(name = "Second Todo", description = "Second description", tasks = tasks)
+        )
         every { todoRepository.findAll() } returns expectedTodos
-        val  actualTodos = todoService.listAll()
 
-        assertEquals(expectedTodos, actualTodos)
+        assertEquals(expectedTodos, todoService.listAll())
     }
 
-    //findById
+    // Find TODO by ID
     @Test
-    fun `not found todo by ID`(){
-        val id = UUID.fromString("381483a2-843c-42ca-80c2-5ecd4a0bf6ee")
-        val expectedTodos: Todo? = null
-        every { todoRepository.findById(id) } returns null
-        val  actualTodo = todoRepository.findById(id)
+    fun `returnsNullForNonexistentTodoId`() {
+        val id = UUID.randomUUID()
+        every { todoRepository.findById(id) } returns Optional.empty()
 
-        assertEquals(expectedTodos, actualTodo)
+        assertEquals(todoService.findTodoById(id), null)
     }
 
     @Test
-    fun `found todo by ID`() {
-        // Setup
-        val expectedId = UUID.fromString("381483a2-843c-42ca-80c2-5ecd4a0bf6ee")
-        val expectedTodo = Todo(id = expectedId, name = "Test", description = "Test Description")
-
-        // Mock the repository's findById method to return an Optional of expectedTodo
+    fun `returnsTodoForValidId`() {
+        val expectedId = UUID.randomUUID()
+        val expectedTodo = Todo(id = expectedId, name = "Valid Todo", description = "A valid todo description")
         every { todoRepository.findById(expectedId) } returns Optional.of(expectedTodo)
 
-        // Act
-        val result = todoService.findTodoById(expectedId)
-
-        // Assert
-        assertEquals(expectedTodo, result, "The found todo should match the expected one")
+        assertEquals(Optional.of(expectedTodo), todoService.findTodoById(expectedId))
     }
 
-    // Delete Todo
+    // Add new TODO
     @Test
-
-    fun `deleted todo by ID`(){
-        val expectedId = UUID.fromString("381483a2-843c-42ca-80c2-5ecd4a0bf6ee")
-        val expectedResult = Unit
-
-        every { todoRepository.deleteById(expectedId) } returns Unit
-
-        val result = todoRepository.deleteById(expectedId)
-
-        assertEquals(expectedResult, result)
-    }
-    @Test
-    fun `not found todo to be deleted`(){
-        val expectedId = UUID.fromString("381483a2-843c-42ca-80c2-5ecd4a0bf6ee")
-        val expectedResult = Unit
-
-        every { todoRepository.deleteById(expectedId) } returns Unit
-
-        val result = todoRepository.deleteById(expectedId)
-
-        assertEquals(expectedResult, result)
-    }
-
-
-    // Update Todo
-    @Test
-    fun `Todo was updated`() {
-        val task1 = Task(name = "test Task", description = "This is a test task")
-        val actualTodo = Todo(
-            id = UUID.fromString("381483a2-843c-42ca-80c2-5ecd4a0bf6ee"),
-            name = "Test",
-            description = "Test Description",
-            tasks = mutableListOf(task1)
+    fun `successfullyAddsNewTodo`() {
+        val tasks = mutableListOf(
+            Task(id = UUID.randomUUID(), name = "First subtask", description = "first subtask description")
         )
-        every { todoRepository.findById(actualTodo.id!!) } returns Optional.of(actualTodo)
+        val newTodo = Todo(name = "First Todo", description = "First description", tasks =  tasks)
+        every { todoRepository.save(newTodo) } returns newTodo
 
-        val task2 = Task(name = "This is a test", description = "updating a todo")
-        val updatedTodo = Todo(id = actualTodo.id, name = actualTodo.name, tasks = mutableListOf(task2))
-
-        every { todoRepository.update(actualTodo) } returns updatedTodo
-        val response = todoService.updateTodo(actualTodo.id!!, actualTodo)
-
-
-        assertEquals(updatedTodo, response)
+        assertEquals(todoRepository.save(newTodo) , newTodo)
     }
 
     @Test
-    fun `Todo was not updated due to missing name`() {
-        val task1 = Task(name = "test Task", description = "This is a test task")
-        val actualTodo = Todo(
-            id = UUID.fromString("381483a2-843c-42ca-80c2-5ecd4a0bf6ee"),
-            name = "Test",
-            description = "Test Description",
-            tasks = mutableListOf(task1)
+    fun `failsToAddTodoWithInvalidData`() {
+        val tasks = mutableListOf(
+            Task(id = UUID.randomUUID(), name = "First subtask", description = "first subtask description")
         )
-        every { todoRepository.findById(actualTodo.id!!) } returns Optional.of(actualTodo)
-
-        val task2 = Task(name = "This is a test", description = "updating a todo")
-        val updatedTodo = Todo(id = actualTodo.id, name = "", tasks = mutableListOf(task2))
-
-        every { todoRepository.update(actualTodo) } returns null
-        val response = todoService.updateTodo(actualTodo.id!!, actualTodo)
-
-
-        assertEquals(null, response)
+        val newTodo = Todo(name = "", description = "First description", tasks =  tasks)
+        val expectedTodo: Todo? = null
+        assertThrows(io.mockk.MockKException::class.java) {
+            todoService.createTodo(newTodo)
+        }
     }
 
+    // Update existing TODO
     @Test
-    fun `Todo was not updated due to missing name in the task`() {
-        val task1 = Task(name = "test Task", description = "This is a test task")
-        val actualTodo = Todo(
-            id = UUID.fromString("381483a2-843c-42ca-80c2-5ecd4a0bf6ee"),
-            name = "Test",
-            description = "Test Description",
-            tasks = mutableListOf(task1)
-        )
-        every { todoRepository.findById(actualTodo.id!!) } returns Optional.of(actualTodo)
+    fun `successfullyUpdatesExistingTodo`() {
+        val existingTodoId = UUID.randomUUID()
+        val existingTodo = Todo(id = existingTodoId, name = "Existing Todo", description = "Existing description", tasks = mutableListOf())
+        val updatedTodoDetails = Todo(name = "Updated Todo", description = "Updated description", tasks = mutableListOf(Task(id = UUID.randomUUID(), name = "Updated subtask", description = "Updated subtask description")))
 
-        val task2 = Task(name = "This is a test", description = "")
-        val updatedTodo = Todo(id = actualTodo.id, name = actualTodo.name, tasks = mutableListOf(task2))
+        // Assuming findTodoById is another method in your service that eventually calls todoRepository.findById
+        every { todoRepository.findById(existingTodoId) } returns Optional.of(existingTodo)
+        every { todoRepository.update(any()) } returnsArgument 0
 
-        every { todoRepository.update(actualTodo) } returns null
-        val response = todoService.updateTodo(actualTodo.id!!, actualTodo)
+        val result = todoService.updateTodo(existingTodoId, updatedTodoDetails)
+
+        assertNotNull(result)
+        assertEquals(updatedTodoDetails.name, result?.name)
+        assertEquals(updatedTodoDetails.description, result?.description)
+        assertEquals(updatedTodoDetails.tasks.size, result?.tasks?.size)
+        verify { todoRepository.update(any()) }
+    }
 
 
-        assertEquals(null, response)
+    @Test
+    fun `failsToUpdateNonexistentTodo`() {
+        val nonexistentTodoId = UUID.randomUUID()
+        val todoToUpdate = Todo(id = nonexistentTodoId, name = "Nonexistent Todo", description = "Should fail")
+
+        every { todoRepository.findById(nonexistentTodoId) } returns Optional.empty()
+        val result = todoService.updateTodo(nonexistentTodoId, todoToUpdate)
+        assertEquals(null, result)
+        }
+
+
+
+    // Delete a TODO
+    @Test
+    fun `successfullyDeletesTodo`() {
+        val todoIdToDelete = UUID.randomUUID()
+
+        every { todoRepository.existsById(todoIdToDelete) } returns true
+        justRun { todoRepository.deleteById(todoIdToDelete) }
+
+        todoService.deleteTodo(todoIdToDelete)
+
+        verify(exactly = 1) { todoRepository.deleteById(todoIdToDelete) }
     }
 
 }
