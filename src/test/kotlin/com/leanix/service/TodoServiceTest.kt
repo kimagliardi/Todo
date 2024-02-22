@@ -53,7 +53,7 @@ class TodoServiceTest {
         val expectedTodo = Todo(id = expectedId, name = "Valid Todo", description = "A valid todo description")
         every { todoRepository.findById(expectedId) } returns Optional.of(expectedTodo)
 
-        assertEquals(Optional.of(expectedTodo), todoService.findTodoById(expectedId))
+        assertEquals(expectedTodo, todoService.findTodoById(expectedId))
     }
 
     // Add new TODO
