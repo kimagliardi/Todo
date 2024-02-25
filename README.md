@@ -30,7 +30,7 @@ This section will guide you through setting up the project locally, ensuring you
 ````
 git clone https://github.com/kimagliardi/Todo.git
 ````
-2. Configure your PostgreSQL database settings in `application.yml`.
+2. Configure your PostgreSQL database settings by running the command `docker compose up`
 3. Build the project: `./gradlew build`
 4. Run the project: `./gradlew run`
 
