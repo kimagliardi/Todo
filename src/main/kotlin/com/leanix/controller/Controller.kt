@@ -15,10 +15,11 @@ import java.util.*
 @Validated
 class TodoController(private val todoService: TodoService) {
     private val logger = LoggerFactory.getLogger(javaClass)
-
     @Get("/")
-    fun listTodos(): List<Todo> = todoService.listAll()
-
+    fun listTodos(): HttpResponse<List<Todo>> {
+        val todos = todoService.listAll()
+        return HttpResponse.ok(todos)
+    }
     @Post("/")
     fun createTodo(@Valid @Body todo: Todo): HttpResponse<Todo> {
         val startTime = System.currentTimeMillis()
@@ -39,15 +40,12 @@ class TodoController(private val todoService: TodoService) {
     @Get("/{id}")
     fun findTodoById(@PathVariable id: UUID,): HttpResponse<Todo> {
         val todo = todoService.findTodoById(id) ?: return HttpResponse.notFound()
-
-        var objectMapper = ObjectMapper.getDefault()
-        println(objectMapper.writeValueAsString(todo))
         return HttpResponse.ok(todo)
     }
 
 
     @Put("/{id}")
-    fun updateTodo(@PathVariable id: UUID, @Body updatedTodo: Todo): HttpResponse<Todo> {
+    fun updateTodo(@PathVariable id: UUID, @Body @Valid updatedTodo: Todo): HttpResponse<Todo> {
         val todo = todoService.updateTodo(id, updatedTodo) ?: return HttpResponse.notFound()
         return HttpResponse.ok(todo)
     }
