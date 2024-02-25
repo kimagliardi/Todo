@@ -47,7 +47,7 @@ class TodoController(private val todoService: TodoService) {
 
 
     @Put("/{id}")
-    fun updateTodo(@PathVariable id: UUID, @Body updatedTodo: Todo): HttpResponse<Todo> {
+    fun updateTodo(@PathVariable id: UUID, @Body @Valid updatedTodo: Todo): HttpResponse<Todo> {
         val todo = todoService.updateTodo(id, updatedTodo) ?: return HttpResponse.notFound()
         return HttpResponse.ok(todo)
     }
