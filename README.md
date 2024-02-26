@@ -46,4 +46,21 @@ The API provides the following endpoints for managing Todo items:
 - `PUT /todos/{id}`: Update an existing Todo item by ID.
 - `DELETE /todos/{id}`: Delete a Todo item by ID.
 
-For detailed usage and additional parameters, please refer to the API documentation.
+Example of body for creating a Todo:
+
+```
+{
+  "name": "Grocery Shopping",
+  "description": "List of items to buy at the grocery store",
+  "tasks": [
+    {
+      "name": "Fruits",
+      "description": "Apples, Bananas, Oranges"
+    },
+    {
+      "name": "Vegetables",
+      "description": "Carrots, Broccoli, Lettuce"
+    }
+  ]
+}
+```
